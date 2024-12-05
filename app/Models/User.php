@@ -2,23 +2,31 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
-    protected $table = 'user';
-    public $timestamps = false; // Specify the table name
+    protected $fillable = [
+        'fullname',
+        'email',
+        'class',
+        'role',
+        'password',
+    ];
+    public $timestamps = false;
 
+    // Relationships
     public function classes()
     {
-        return $this->hasMany(ClassModel::class, 'teacherid');
+        return $this->hasMany(ClassModel::class, 'teacher_id');
     }
 
     public function attendance()
     {
-        return $this->hasMany(Attendance::class, 'studentid');
+        return $this->hasMany(Attendance::class, 'student_id');
     }
 }

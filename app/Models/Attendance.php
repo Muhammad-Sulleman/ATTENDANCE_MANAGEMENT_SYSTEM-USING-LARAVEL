@@ -9,14 +9,23 @@ class Attendance extends Model
 {
     use HasFactory;
 
-    protected $table = 'attendance';
-    public $timestamps = false;/// Specify the table name
+    // Specify the table name if it doesn't follow Laravel's naming convention
+    protected $table = 'attendances';
 
+    // Disable timestamps if you don't want the created_at and updated_at columns
+    public $timestamps = false;
+
+    /**
+     * Get the student associated with the attendance record.
+     */
     public function student()
     {
-        return $this->belongsTo(user::class, 'studentid');
+        return $this->belongsTo(User::class, 'studentid');
     }
 
+    /**
+     * Get the class associated with the attendance record.
+     */
     public function class()
     {
         return $this->belongsTo(ClassModel::class, 'classid');

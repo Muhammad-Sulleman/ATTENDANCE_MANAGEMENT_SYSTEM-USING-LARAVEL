@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\ClassController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/dashboard', [AttendanceController::class, 'index'])->name('dashboard');
+Route::post('/attendance', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');

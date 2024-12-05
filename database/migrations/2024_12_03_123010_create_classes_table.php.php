@@ -19,7 +19,7 @@ return new class extends Migration
             $table->time('starttime');
             $table->time('endtime');
             $table->integer('credit_hours');
-            $table->foreign('teacherid')->references('id')->on('user')->onDelete('cascade');
+            $table->foreign('teacherid')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
