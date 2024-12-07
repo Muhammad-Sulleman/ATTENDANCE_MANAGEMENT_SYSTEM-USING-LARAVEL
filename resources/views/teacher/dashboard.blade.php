@@ -1,13 +1,21 @@
-@extends('layouts.app')
+@include("./partials/header");
+</div class="container">
+<h2>Your Attendance Sessions</h2>
 
-@section('content')
-<h1>Attendance Sessions</h1>
-<ul>
-    @foreach($classes as $class)
-    <li>
-        Class: {{ $class->id }} ({{ $class->start_time }} - {{ $class->end_time }})
-        <a href="{{ route('attendance.mark', $class->id) }}">Mark Attendance</a>
-    </li>
-    @endforeach
-</ul>
-@endsection
+<!-- Button to create a new session -->
+<a href="{{ route('teacher.createSession') }}" class="btn btn-primary" >Create session</a>
+
+<div class="available-sessions">
+    <ul>
+        @forelse($classes as $class)
+        <li>
+            Class ID: {{ $class->id }} <br>
+            Start: {{ $class->starttime }} <br>
+            End: {{ $class->endtime }} <br>
+            <a href="{{ route('teacher.markAttendance', ['classid' => $class->id]) }}">Mark Attendance</a>
+        </li>
+        @empty
+        <li>No classes found.</li>
+        @endforelse
+    </ul>
+</div>@include("./partials/footer");

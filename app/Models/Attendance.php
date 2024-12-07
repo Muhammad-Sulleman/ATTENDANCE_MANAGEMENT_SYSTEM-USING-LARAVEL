@@ -15,6 +15,13 @@ class Attendance extends Model
     // Disable timestamps if you don't want the created_at and updated_at columns
     public $timestamps = false;
 
+    protected $fillable = [
+        'classid',
+        'student_id',
+        'isPresent',
+        'comments'
+      
+    ];
     /**
      * Get the student associated with the attendance record.
      */

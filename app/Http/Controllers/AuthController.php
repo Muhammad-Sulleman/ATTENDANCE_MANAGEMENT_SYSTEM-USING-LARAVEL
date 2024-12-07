@@ -1,11 +1,12 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash;    
 
 class AuthController extends Controller
 {
@@ -17,7 +18,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'role' => 'required|in:teacher,student',
-            'class' => 'nullable|string',
+            'class' => 'nullable|string'
         ]);
 
         // Create the user and save the role
@@ -25,7 +26,7 @@ class AuthController extends Controller
             'fullname' => $request->fullname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role, // Save role directly
+            'role' => $request->role, // Save the role directly
             'class' => $request->role === 'student' ? $request->class : null,
         ]);
 
@@ -46,9 +47,11 @@ class AuthController extends Controller
             Auth::login($user);
 
             // Redirect based on the user's role
-            return $user->role === 'teacher'
-                ? redirect()->route('teacher.dashboard')
-                : redirect()->route('student.dashboard');
+            if ($user->role === 'teacher') {
+                return redirect()->route('teacher.dashboard');
+            } elseif ($user->role === 'student') {
+                return redirect()->route('student.dashboard');
+            }
         }
 
         return redirect()->back()->with('login_error', 'Invalid email or password!');

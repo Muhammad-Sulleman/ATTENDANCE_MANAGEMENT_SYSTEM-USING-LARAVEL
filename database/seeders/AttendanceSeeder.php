@@ -24,13 +24,7 @@ class AttendanceSeeder extends Seeder
             'comments' => 'Absent due to illness',
         ]);
 
-        Attendance::create([
-            'classid' => 2,
-            'studentid' => 3, // Sara Malik
-            'isPresent' => true,
-            'comments' => 'On time',
-        ]);
-
+     
         // Add more attendance records as needed
     }
 }
